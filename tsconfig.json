@@ -20,16 +20,7 @@
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
-
-    "paths": {
-      "@src/*": ["src/*"],
-      "@test/*": ["test/*"],
-    },
   },
-  "include": [
-    "./src/**/*.ts",
-    "./test/**/*.ts"
-  ],
 
   "exclude": ["node_modules", "dist"]
 }

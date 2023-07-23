@@ -1,4 +1,4 @@
-import IPatient from '@src/types/interfaces/models/IPatient';
+import IPatient from '../../types/interfaces/models/IPatient';
 
 //todo adicionar 'extends Model<IPatient>' quando o banco estiver feito
 export class Patient implements IPatient {
