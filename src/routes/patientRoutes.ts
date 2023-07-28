@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { PatientController } from '../controllers/patientController';
-import IPatient from "../types/interfaces/models/IPatient";
 
 const patientRouter = Router();
 patientRouter.post('/patients', async (req: any, res: any): Promise<void> => {

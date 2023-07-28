@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import { patientRouter } from './routes';
 import Database from './database/Database';
-import bodyParser from 'body-parser';
 
 const app = express();
 
