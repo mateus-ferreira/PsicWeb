@@ -1,5 +1,4 @@
 export default interface IPatient {
-    id: string,
     name: string,
     CPF: number,
     RG: number,

@@ -1,21 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import { patientRouter } from './routes';
+import Database from './database/Database';
+import bodyParser from 'body-parser';
 
 const app = express();
-
-app.get('/', (req: any, res: any) => {
-    res.send('Bem-vindo!')
-});
-
-app.use(patientRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(cors({
-//     origin: ['http://localhost:3000']
-// }));
+app.use(cors({
+    origin: ['http://localhost:3000']
+}))
+
+app.use('/api', patientRouter);
+
+Database.init();
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Rodando')
