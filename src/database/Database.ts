@@ -43,7 +43,7 @@ export default class Database {
 
         // Store the underlying database connection
         this.db = mongoose;
-    };
+    }
 
     /**
      * Getter method for accessing URI string
@@ -116,7 +116,7 @@ export default class Database {
             .collection<T>(col)
             .find(query)
             .toArray();
-    };
+    }
 
     /**
      * Method to query the database without using models.
@@ -135,7 +135,7 @@ export default class Database {
             .db(config.database.mongo.options.dbName)
             .collection<T>(col)
             .insertOne(query);
-    };
+    }
 
     /**
      * Method to query the database without using models.
@@ -156,7 +156,7 @@ export default class Database {
             .db(config.database.mongo.options.dbName)
             .collection<T>(col)
             .updateOne(condition, query);
-    };
+    }
 
     /**
      * Method to query the database without using models.
@@ -175,5 +175,5 @@ export default class Database {
             .db(config.database.mongo.options.dbName)
             .collection<T>(col)
             .deleteOne(condition);
-    };
+    }
 }

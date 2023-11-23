@@ -15,5 +15,5 @@ export default interface IPatient {
     sessionHistory: string,
     anamnesis: string,
     psychologicalEvaluation: string,
-    clinicalRecord: string
+    clinicalRecord: string,
 }

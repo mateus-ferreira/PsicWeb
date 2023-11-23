@@ -21,4 +21,4 @@ patientRouter.delete('/patients/:id', async (req: any, res: any): Promise<void> 
     await PatientController.deleteOnePatient(req, res);
 });
 
-export { patientRouter };
+export default patientRouter ;
