@@ -1,12 +1,11 @@
 import express, { Express } from 'express';
-import cors from 'cors';
 import apiRouter from './routes';
 import http from 'node:http';
 import Database from './database/Database';
 import { Server } from 'node:net';
 import * as bodyParser from 'body-parser';
 import WebServerObserver from './util/observers/WebServerObserver';
-import config from './util/config/config';
+import Config from "./util/config/config";
 
 export default class App {
     public static instance: App;
@@ -32,7 +31,7 @@ export default class App {
         this.server.on('close', WebServerObserver.close);
         this.server.on('error', WebServerObserver.error);
 
-        this.server.listen(config.server.port, config.server.address);
+        this.server.listen(Config.server.port, Config.server.address);
     }
 
     public static async init(): Promise<App> {
