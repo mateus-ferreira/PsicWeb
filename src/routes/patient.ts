@@ -2,15 +2,15 @@ import {Request, Response, Router} from 'express';
 import { PatientController } from '../controllers/patientController';
 import IPatient from "../types/interfaces/models/IPatient";
 
-const patientRouter = Router();
-patientRouter.post('/patients', async (req: Request<IPatient>, res: Response): Promise<any> => {
+const patientRouter: Router = Router();
+patientRouter.post('/patients', async (req: Request<IPatient>, res: Response): Promise<(IPatient | any)> => {
     await PatientController.createNewPatient(req, res);
 });
-patientRouter.get('/patients', async (req: Request, res: Response): Promise<any> => {
+patientRouter.get('/patients', async (req: Request, res: Response): Promise<(IPatient[] | any)> => {
     await PatientController.getAllPatients(req, res);
 });
 
-patientRouter.get('/patients/:id', async (req: Request, res: Response): Promise<any> => {
+patientRouter.get('/patients/:id', async (req: Request, res: Response): Promise<(IPatient | any)> => {
     await PatientController.getOnePatient(req, res);
 });
 
