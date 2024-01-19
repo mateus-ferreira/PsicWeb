@@ -103,18 +103,18 @@ export default class Database {
      *
      * @static
      * @param   { string }  col    Collection name.
-     * @param   { any }     query  Database query to be executed.
+     * @param   { any }     condition  Database condition to be executed.
      * @returns { Array<number, Document> }  Database documents.
      */
     public static async find<T extends Document = any>(
         col: string,
-        query: any = {}
+        condition: any = {}
     ): Promise<any[]> {
         return this.instance.raw.connection
             .getClient()
             .db(config.database.mongo.options.dbName)
             .collection<T>(col)
-            .find(query)
+            .find(condition)
             .toArray();
     }
 
