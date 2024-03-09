@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose';
+
 export default interface IPatient {
     name: string,
     CPF: number,
@@ -8,11 +10,11 @@ export default interface IPatient {
     email: string,
     commercialAddress?: string | null,
     residentialAddress: string | null,
-    role: string,
+    profession: string,
     commercialPhone?: number | null,
     personalPhone: number | null,
     emergencyPhone?: number | null,
-    sessionHistory: string,
+    sessionHistory: ObjectId,
     anamnesis: string,
     psychologicalEvaluation: string,
     clinicalRecord: string,

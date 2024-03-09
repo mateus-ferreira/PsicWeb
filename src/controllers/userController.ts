@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import Database from "../database/Database";
 import logger from "../util/logger";
-import IUser from "../types/interfaces/models/IUser";
+import IUser from "../interfaces/IUser";
 import {Types} from "mongoose";
 
 export class UserController {

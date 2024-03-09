@@ -1,6 +1,6 @@
 import {Request, Response, Router} from 'express';
 import { PatientController } from '../controllers/patientController';
-import IPatient from "../types/interfaces/models/IPatient";
+import IPatient from "../interfaces/IPatient";
 
 const patientRouter: Router = Router();
 patientRouter.post('/patients', async (req: Request<IPatient>, res: Response): Promise<(IPatient | any)> => {

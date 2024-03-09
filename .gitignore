@@ -50,3 +50,4 @@ Thumbs.db
 # enviroment files
 .env
 config.json
+package-lock.json

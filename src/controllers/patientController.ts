@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import Database from '../database/Database';
-import IPatient from "../types/interfaces/models/IPatient";
+import IPatient from "../interfaces/IPatient";
 import { Types } from 'mongoose';
 import logger from '../util/logger';
 

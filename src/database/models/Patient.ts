@@ -1,22 +1,104 @@
-import IPatient from '../../types/interfaces/models/IPatient';
+import IPatient from '../../interfaces/IPatient';
+import {Model, model, Schema} from 'mongoose';
 
-export class Patient implements IPatient {
-    declare id: string;
-    declare name: string;
-    declare CPF: number;
-    declare RG: number;
-    declare dateOfBirth: Date;
-    declare motherName?: string | null;
-    declare fatherName?: string | null;
-    declare email: string;
-    declare commercialAddress?: string | null;
-    declare residentialAddress: string | null;
-    declare role: string;
-    declare commercialPhone?: number | null;
-    declare personalPhone: number | null;
-    declare emergencyPhone?: number | null;
-    declare sessionHistory: string;
-    declare anamnesis: string;
-    declare psychologicalEvaluation: string;
-    declare clinicalRecord: string;
+const PatientSchema = new Schema<IPatient>({
+    name: {
+        type: Schema.Types.String,
+        required: true,
+        trim: true,
+    },
+
+    CPF: {
+        type: Schema.Types.Number,
+        required: true,
+        trim: true,
+    },
+
+    RG: {
+        type: Schema.Types.Number,
+        required: true,
+        trim: true,
+    },
+
+    dateOfBirth: {
+        type: Schema.Types.Date,
+        required: true,
+    },
+
+    motherName: {
+        type: Schema.Types.String,
+        trim: true,
+    },
+
+    fatherName: {
+        type: Schema.Types.String,
+        trim: true,
+    },
+
+    email: {
+        type: Schema.Types.String,
+        trim: true,
+    },
+
+    commercialAddress: {
+        type: Schema.Types.String,
+        trim: true,
+    },
+
+    residentialAddress: {
+        type: Schema.Types.String,
+        required: true,
+        trim: true,
+    },
+
+    profession: {
+        type: Schema.Types.String,
+        required: true,
+        trim: true,
+    },
+
+    commercialPhone: {
+        type: Schema.Types.Number,
+        trim: true,
+    },
+
+    personalPhone: {
+        type: Schema.Types.Number,
+        required: true,
+        trim: true,
+    },
+
+    emergencyPhone: {
+        type: Schema.Types.Number,
+        trim: true,
+    },
+
+    sessionHistory: {
+        type: Schema.Types.ObjectId,
+        ref: 'SessionHistory',
+    },
+
+    anamnesis: {
+        type: Schema.Types.String,
+        required: true,
+        trim: true,
+    },
+
+    psychologicalEvaluation: {
+        type: Schema.Types.String,
+        trim: true,
+    },
+
+    clinicalRecord: {
+        type: Schema.Types.String,
+        trim: true,
+    },
+});
+
+export const Patient = model<IPatient>('Patient', PatientSchema);
+
+export class Manager {
+    public getModel(): Model<IPatient> {
+        return Patient;
+    }
 }
