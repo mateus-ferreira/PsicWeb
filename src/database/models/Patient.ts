@@ -1,5 +1,5 @@
 import IPatient from '../../interfaces/IPatient';
-import {Model, model, Schema} from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const PatientSchema = new Schema<IPatient>({
     name: {
@@ -93,12 +93,8 @@ const PatientSchema = new Schema<IPatient>({
         type: Schema.Types.String,
         trim: true,
     },
+}, {
+    collection: 'patients',
 });
 
 export const Patient = model<IPatient>('Patient', PatientSchema);
-
-export class Manager {
-    public getModel(): Model<IPatient> {
-        return Patient;
-    }
-}

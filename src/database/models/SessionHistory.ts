@@ -1,4 +1,4 @@
-import {Model, model, Schema} from 'mongoose';
+import { model, Schema} from 'mongoose';
 import ISessionHistory from '../../interfaces/ISessionHistory';
 
 const SessionHistorySchema = new Schema<ISessionHistory>({
@@ -19,9 +19,3 @@ const SessionHistorySchema = new Schema<ISessionHistory>({
 });
 
 export const SessionHistory = model<ISessionHistory>('SessionHistory', SessionHistorySchema);
-
-export class Manager {
-    public getModel(): Model<ISessionHistory> {
-        return SessionHistory;
-    }
-}

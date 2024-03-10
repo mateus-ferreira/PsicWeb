@@ -1,5 +1,5 @@
 import IUser from '../../interfaces/IUser';
-import { Model, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const UserSchema = new Schema<IUser>({
     name: {
@@ -27,9 +27,3 @@ const UserSchema = new Schema<IUser>({
 });
 
 export const User = model<IUser>('User', UserSchema);
-
-export class Manager {
-    public getModel(): Model<IUser> {
-        return User;
-    }
-}
