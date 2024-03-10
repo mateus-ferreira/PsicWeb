@@ -1,17 +1,17 @@
 import {Request, Response, Router} from 'express';
 import { PatientController } from '../controllers/patientController';
-import IPatient from "../types/interfaces/models/IPatient";
+import IPatient from "../interfaces/IPatient";
 
 const patientRouter: Router = Router();
-patientRouter.post('/patients', async (req: Request<IPatient>, res: Response): Promise<(IPatient | any)> => {
-    await PatientController.createNewPatient(req, res);
+patientRouter.post('/patients', async (req: Request<IPatient>, res: Response): Promise<(IPatient | void)> => {
+    res.send(await PatientController.createNewPatient(req, res));
 });
-patientRouter.get('/patients', async (req: Request, res: Response): Promise<(IPatient[] | any)> => {
-    await PatientController.getAllPatients(req, res);
+patientRouter.get('/patients', async (req: Request, res: Response): Promise<(IPatient[] | void)> => {
+    res.send(await PatientController.getAllPatients(req, res));
 });
 
-patientRouter.get('/patients/:id', async (req: Request, res: Response): Promise<(IPatient | any)> => {
-    await PatientController.getOnePatient(req, res);
+patientRouter.get('/patients/:id', async (req: Request, res: Response): Promise<(IPatient | void)> => {
+    res.send(await PatientController.getOnePatient(req, res));
 });
 
 patientRouter.patch('/patients/:id', async (req: Request, res: Response): Promise<void> => {

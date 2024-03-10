@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import Database from '../database/Database';
-import IPatient from "../types/interfaces/models/IPatient";
+import IPatient from "../interfaces/IPatient";
 import { Types } from 'mongoose';
 import logger from '../util/logger';
+import {Patient} from "../database/models/Patient";
 
 export class PatientController {
     public static async createNewPatient(req: Request<IPatient>, res: Response): Promise<IPatient> {
         try {
-            await Database.insert('patients', req.body);
+            await Patient.create(req.body);
             res.status(201);
             return req.body;
         } catch (e) {
@@ -16,9 +16,9 @@ export class PatientController {
         }
     }
 
-    public static async getAllPatients(req: any, res: any): Promise<IPatient[]> {
+    public static async getAllPatients(req: Request, res: Response<IPatient[]>): Promise<IPatient[]> {
         try {
-            const patients: IPatient[] = await Database.find('patients');
+            const patients: IPatient[] = await Patient.find().lean();
 
             res.status(200);
 
@@ -29,11 +29,11 @@ export class PatientController {
         }
     }
 
-    public static async getOnePatient(req: Request, res: Response): Promise<IPatient[]> {
+    public static async getOnePatient(req: Request, res: Response<IPatient[]>): Promise<IPatient[]> {
         try {
             const { id } = req.params;
 
-            const patients: IPatient[] = await Database.find('patients', { _id: new Types.ObjectId(id) });
+            const patients: IPatient[] = await Patient.find({ _id: new Types.ObjectId(id) }).lean();
 
             res.status(200);
 
@@ -48,7 +48,7 @@ export class PatientController {
         try {
             const { id } = req.params;
 
-            await Database.updateOne('patients', { _id: new Types.ObjectId(id) }, { $set: req.body })
+            await Patient.updateOne({ _id: new Types.ObjectId(id) }, { $set: req.body }).lean();
 
             res.status(204);
         } catch (e) {
@@ -61,7 +61,7 @@ export class PatientController {
         try {
             const { id } = req.params;
 
-            await Database.deleteOne('patients', { _id: new Types.ObjectId(id) });
+            await Patient.deleteOne({ _id: new Types.ObjectId(id) }).lean();
             res.status(204);
         } catch (e) {
             logger.error(e);
