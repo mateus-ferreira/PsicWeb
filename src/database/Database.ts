@@ -1,4 +1,4 @@
-import mongoose, { Mongoose, Document, Connection } from 'mongoose';
+import mongoose, { Mongoose, Connection } from 'mongoose';
 import DatabaseObserver from '../util/observers/DatabaseObserver';
 import config from '../util/config/config';
 
@@ -96,84 +96,5 @@ export default class Database {
         if (!this.instance) throw new Error(`Database was not initialized`);
 
         return this.instance.raw.connection;
-    }
-
-    /**
-     * Method to query the database without using models.
-     *
-     * @static
-     * @param   { string }  col    Collection name.
-     * @param   { any }     query  Database query to be executed.
-     * @returns { Array<number, Document> }  Database documents.
-     */
-    public static async find<T extends Document = any>(
-        col: string,
-        query: any = {}
-    ): Promise<any[]> {
-        return this.instance.raw.connection
-            .getClient()
-            .db(config.database.mongo.options.dbName)
-            .collection<T>(col)
-            .find(query)
-            .toArray();
-    }
-
-    /**
-     * Method to query the database without using models.
-     *
-     * @static
-     * @param   { string }  col    Collection name.
-     * @param   { any }     query  Database query to be executed.
-     * @returns { Document> }  Database documents.
-     */
-    public static async insert<T extends Document = any>(
-        col: string,
-        query: any = {}
-    ): Promise<any> {
-        return this.instance.raw.connection
-            .getClient()
-            .db(config.database.mongo.options.dbName)
-            .collection<T>(col)
-            .insertOne(query);
-    }
-
-    /**
-     * Method to query the database without using models.
-     *
-     * @static
-     * @param   { string }  col    Collection name.
-     * @param   { any }  condition Id to update
-     * @param   { any }     query  Database query to be executed.
-     * @returns { Document> }  Database documents.
-     */
-    public static async updateOne<T extends Document = any>(
-        col: string,
-        condition: any,
-        query: any = {}
-    ): Promise<any> {
-        return this.instance.raw.connection
-            .getClient()
-            .db(config.database.mongo.options.dbName)
-            .collection<T>(col)
-            .updateOne(condition, query);
-    }
-
-    /**
-     * Method to query the database without using models.
-     *
-     * @static
-     * @param   { string }  col    Collection name.
-     * @param   { any }  condition Id to update
-     * @returns { Document> }  Database documents.
-     */
-    public static async deleteOne<T extends Document = any>(
-        col: string,
-        condition: any,
-    ): Promise<any> {
-        return this.instance.raw.connection
-            .getClient()
-            .db(config.database.mongo.options.dbName)
-            .collection<T>(col)
-            .deleteOne(condition);
     }
 }

@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 import { merge } from 'lodash';
 import { relative, normalize } from 'path';
 import { existsSync, readFileSync } from 'fs';
-import IConfig from '../../types/interfaces/models/IConfig';
+import IConfig from '../../interfaces/IConfig';
 
 /**
  * Helper function for reading JSON files. Path argument

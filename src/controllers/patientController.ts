@@ -1,62 +1,68 @@
 import { Request, Response } from 'express';
-import Database from '../database/Database';
-import IPatient from "../types/interfaces/models/IPatient";
-import joi from 'joi';
+import IPatient from "../interfaces/IPatient";
 import { Types } from 'mongoose';
 import logger from '../util/logger';
+import {Patient} from "../database/models/Patient";
 
 export class PatientController {
-    public static async createNewPatient(req: Request<IPatient>, res: Response): Promise<void> {
+    public static async createNewPatient(req: Request<IPatient>, res: Response): Promise<IPatient> {
         try {
-           await Database.insert('patients', req.body);
-           res.status(201).send(req.body)
+            await Patient.create(req.body);
+            res.status(201);
+            return req.body;
         } catch (e) {
             logger.error(e);
             throw new Error();
         }
     }
 
-    public static async getAllPatients(req: any, res: any): Promise<void> {
+    public static async getAllPatients(req: Request, res: Response<IPatient[]>): Promise<IPatient[]> {
         try {
-            res.status(200).send(await Database.find('patients') as IPatient[]);
+            const patients: IPatient[] = await Patient.find().lean();
+
+            res.status(200);
+
+            return patients;
         } catch (e) {
             logger.error(e);
             throw new Error();
         }
     }
 
-    public static async getOnePatient(req: Request, res: any): Promise<void> {
+    public static async getOnePatient(req: Request, res: Response<IPatient[]>): Promise<IPatient[]> {
         try {
-            const schema = joi.object({ id: joi.string().hex().length(24).required() })
-            const { id } = await schema.validateAsync(req.params);
+            const { id } = req.params;
 
-            const patients: IPatient[] = await Database.find('patients', { _id: new Types.ObjectId(id) });
-            res.status(200).send(patients);
+            const patients: IPatient[] = await Patient.find({ _id: new Types.ObjectId(id) }).lean();
+
+            res.status(200);
+
+            return patients;
         } catch (e) {
             logger.error(e);
             throw new Error();
         }
     }
 
-    public static async updateOnePatient(req: any, res: any): Promise<void> {
+    public static async updateOnePatient(req: Request, res: Response): Promise<void> {
         try {
-            const schema = joi.object({ id: joi.string().hex().length(24).required() })
-            const { id } = await schema.validateAsync(req.params);
+            const { id } = req.params;
 
-            res.status(200).send(await Database.updateOne('patients', { _id: new Types.ObjectId(id) }, { $set: req.body }));
+            await Patient.updateOne({ _id: new Types.ObjectId(id) }, { $set: req.body }).lean();
+
+            res.status(204);
         } catch (e) {
             logger.error(e);
             throw new Error();
         }
     }
 
-    public static async deleteOnePatient(req: any, res: any): Promise<void> {
+    public static async deleteOnePatient(req: Request, res: Response): Promise<void> {
         try {
-            const schema = joi.object({ id: joi.string().hex().length(24).required() })
-            const { id } = await schema.validateAsync(req.params);
+            const { id } = req.params;
 
-            await Database.deleteOne('patients', { _id: new Types.ObjectId(id) });
-            res.status(200).send('Deleted');
+            await Patient.deleteOne({ _id: new Types.ObjectId(id) }).lean();
+            res.status(204);
         } catch (e) {
             logger.error(e);
             throw new Error();

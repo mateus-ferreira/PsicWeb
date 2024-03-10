@@ -49,4 +49,5 @@ Thumbs.db
 
 # enviroment files
 .env
-config.json
+src/util/config/config.json
+package-lock.json

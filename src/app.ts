@@ -3,7 +3,7 @@ import apiRouter from './routes';
 import http from 'node:http';
 import Database from './database/Database';
 import { Server } from 'node:net';
-import * as bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import WebServerObserver from './util/observers/WebServerObserver';
 import Config from "./util/config/config";
 
